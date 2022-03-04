@@ -29,7 +29,7 @@ TreeNode *newMirrorNode(int data)
     node->item = data;
     node->left = node->right = NULL;
     return (node);
-}
+} 
 
 // Function to insert nodes in level order , it mirrors the main build tree with 0's and 1's 
 TreeNode *mirrorBuildTree(int arr[], TreeNode *root,
@@ -49,12 +49,13 @@ TreeNode *mirrorBuildTree(int arr[], TreeNode *root,
         // insert right child
         root->right = mirrorBuildTree(arr,
                                        root->right, 2 * i + 2, n);
-    }
+    } 
+
     return root;
 }
 void preorderPrint(TreeNode *root)
 {
-    // Print all the items in the tree to which root points.
+    // Print all the items in the tree to which root points preorder fashon.
     // The item in the root is printed first, followed by the
     // items in the left subtree and then the items in the
     // right subtree.
@@ -105,6 +106,11 @@ void preorderPrint(TreeNode *root)
     }
 }
 
+
+
+// Helper Functions end here
+
+// Constructor 
 binTree::binTree(vector<bool> apples)
 {
     int size = apples.size();
@@ -172,10 +178,31 @@ binTree::binTreeNode *binTree::buildTree(std::vector<bool> apples, binTreeNode *
     return root;
 }
 
+// Recursive function to delete a given binary tree
+void deleteBinaryTree(binTree::binTreeNode* &root)
+{
+    // Base case: empty tree
+    if (root == nullptr) {
+        return;
+    }
+ 
+    // delete left and right subtree first (Postorder)
+    deleteBinaryTree(root->left);
+    deleteBinaryTree(root->right);
+ 
+    // delete the current node after deleting its left and right subtree
+    delete root;
+ 
+    // set root as null before returning
+    root = nullptr;
+}
+
 // Delete the Tree
 binTree::~binTree()
 {
-
+  // Base case: to empty tree
+ deleteBinaryTree(root);
+ 
 }
 
 // Delete this Test code once we are done testing 
